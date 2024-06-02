@@ -2,11 +2,12 @@ from django.db.models import QuerySet
 
 
 class MembersQuerySet(QuerySet):
-    """ QuerySet for Members Model """
+    """QuerySet for Members Model"""
 
     def active(self, reverse: bool = False):
         """
-        Returns active members
+        Get all active members in queryset
+
         :param reverse: return inactive members?
         :return: active members queryset
         """

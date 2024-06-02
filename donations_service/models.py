@@ -9,7 +9,8 @@ from donations_service import querysets
 
 
 class Member(models.Model):
-    """ Member model """
+    """Member model"""
+
     address = models.CharField(
         unique=True,
         editable=False,
@@ -22,6 +23,9 @@ class Member(models.Model):
         blank=True,
     )
     charges = models.PositiveBigIntegerField(
+        null=True,
+    )
+    total = models.PositiveBigIntegerField(
         null=True,
     )
 
@@ -38,29 +42,38 @@ class Member(models.Model):
     )
     avatar = ResizedImageField(
         size=[300, 300],
-        crop=['middle', 'center'],
-        upload_to=settings.MEDIA_ROOT,
+        crop=["middle", "center"],
+        upload_to="avatars",
         null=True,
     )
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='member',
+        related_name="member",
         null=True,
     )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = querysets.MembersQuerySet.as_manager()
 
     @property
     def is_active(self):
-        """ Shows if user is active """
+        """Shows if user is active"""
         if not (user_id := self.user_id):
             return False
 
-        return get_user_model().objects.only('is_active').get(id=user_id).is_active
+        return get_user_model().objects.only("is_active").get(id=user_id).is_active
 
     @property
     def avatar_url(self):
-        """ Represents the image url """
+        """Represents the image url"""
         return self.avatar.url if self.avatar else None
+
+    class Meta:
+        ordering = (
+            "-updated_at",
+            "created_at",
+        )

@@ -14,7 +14,10 @@ DRAMATIQ_BROKER = {
         "dramatiq.middleware.Retries",
         "django_dramatiq.middleware.DbConnectionsMiddleware",
         "django_dramatiq.middleware.AdminMiddleware",
-    ]
+    ],
 }
 
 DRAMATIQ_TASKS_DATABASE = "default"
+DRAMATIQ_CRONTAB = {
+    "REDIS_URL": REDIS_CONNECTION_STRING,
+}
