@@ -109,7 +109,7 @@ def transfer(
     """DonationToken.transfer (from any)"""
     _send_signed_contract_transaction(
         w3,
-        token_contract.functions.transfer(receiver_address, value),
+        token_contract.functions.donateTransfer(receiver_address, value),
         account_private_key,
     )
 
@@ -260,14 +260,14 @@ def main():
             private_key = private_keys[args.sender]
             address = addresses[receiver]
             transfer(
-                w3, token_contract, private_key, address, w3.to_wei(int(value), "gwei")
+                w3, token_contract, private_key, address, int(value)
             )
         case "donate" | "donate_all":
             value = _get_required_value(args)
 
             private_key = private_keys[args.sender]
             _actions_mapping[args.action](
-                w3, token_contract, private_key, w3.to_wei(int(value), "gwei")
+                w3, token_contract, private_key, int(value)
             )
         case "buy":
             value = _get_required_value(args)
