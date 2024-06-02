@@ -1,7 +1,20 @@
 pydantic==2.7.1
 pydantic_core==2.18.2
 
-Djagno==5.0.6
+split-settings
+python-dotenv
+envparse
+
+redis==5.0.4
+dramatiq[watch, redis]
+
+pillow
+
+Django==4.2.6
 django-ninja==1.1.0
+django-dramatiq
+django-resized
+
+psycopg2-binary
 
 web3==6.19.0
