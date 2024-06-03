@@ -1,0 +1,4 @@
+[flake8]
+ignore=D104,D100,D106,D400,W504,D107,D402,D105
+exclude = __pycache__,venv,dist,data,migrations
+max-line-length=120
